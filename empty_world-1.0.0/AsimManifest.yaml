@@ -1,0 +1,30 @@
+name: "empty_world"
+displayName: "empty_world"
+description: "Empty world for general tests"
+asset-type: "Environment"
+version: "1.0.0"
+license: "Apache License 2.0"
+created: "2024-11-26T16:22:23.926Z"
+lastEdited: "2024-11-26T16:22:24.091Z"
+repackaged: "2024-11-26T16:22:24.091Z"
+ROS-compatibility:
+  - "ROS 2 Humble Hawksbill"
+simulator-compatibility:
+  - "Gazebo Fortress"
+source: "Private"
+creator: "Andrés Leonardo Alamo Guizado"
+ownerAID: ""
+tags: []
+size: "**"
+codeLanguage: ""
+complexity: "Low"
+folderSize: 8645115
+demo: ""
+rosCompatibility: &a1
+  - "ROS 2 Humble Hawksbill"
+simulatorCompatibility: &a2
+  - "Gazebo Fortress"
+ROS-Compatibility: *a1
+Simulator-Compatibility: *a2
+image_filenames:
+  - "1.png"

@@ -1,0 +1,32 @@
+name: "results"
+displayName: "results"
+description: "Template asset description, please replace."
+asset-type: "Results"
+version: "1.0.0"
+license: "proprietary"
+created: "2024-11-25T13:31:23.279Z"
+lastEdited: "2024-11-25T13:31:23.299Z"
+repackaged: "2024-11-25T13:31:23.299Z"
+ROS-compatibility: "ROS 2 Humble Hawksbill"
+simulator-compatibility: ""
+source: "Private"
+creator: ""
+ownerAID: ""
+tags: []
+size: ""
+codeLanguage: ""
+complexity: ""
+folderSize: 5160
+demo: ""
+spec:
+  simulationName: "robot-lab"
+  assetsName:
+    - "panther 1.0.0"
+    - "beach_world 1.0.0"
+    - "rosbot_xl 1.0.0"
+  platformConfiguration: "simulator-humble-fortress-dev:0.4.1-es"
+  hardwareConfiguration: "node_x507ubr-medium"
+  assetUrls:
+    - "folder://assets.platform.asimovo.com/user-66fdc818-2e47-4a1c-bdeb-e6dcba07ec20/default/assets/panther:1.0.0"
+    - "folder://assets.platform.asimovo.com/user-66fdc818-2e47-4a1c-bdeb-e6dcba07ec20/default/assets/beach_world:1.0.0"
+    - "folder://assets.platform.asimovo.com/user-66fdc818-2e47-4a1c-bdeb-e6dcba07ec20/default/assets/rosbot_xl:1.0.0"

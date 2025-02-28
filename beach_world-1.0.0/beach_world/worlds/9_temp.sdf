@@ -1,0 +1,244 @@
+<?xml version="1.0"?>
+
+<sdf version="1.8">
+    
+    <world name="demo_world">
+
+        <physics name="1ms" type="ignored">
+            <max_step_size>0.001</max_step_size>
+            <real_time_factor>1.0</real_time_factor>
+        </physics>
+
+        <plugin
+            filename="libignition-gazebo-physics-system.so"
+            name="ignition::gazebo::systems::Physics">
+        </plugin>
+
+        <plugin
+            filename="libignition-gazebo-user-commands-system.so"
+            name="ignition::gazebo::systems::UserCommands">
+        </plugin>
+
+        <plugin
+            filename="libignition-gazebo-scene-broadcaster-system.so"
+            name="ignition::gazebo::systems::SceneBroadcaster">
+        </plugin>
+
+        <gravity>0 0 -9.8</gravity>
+        <magnetic_field>5.565e-06 2.289e-05 -4.239e-05</magnetic_field>
+        <atmosphere type='adiabatic'/>
+
+        <scene>
+            <ambient>0.4 0.4 0.4 1</ambient>
+            <background>0.7 0.7 0.7 1</background>
+            <shadows>true</shadows>
+        </scene>
+
+        <model name='ground_plane'>
+            <pose>0 0 0 0 0 0</pose>
+            <self_collide>false</self_collide>
+            <static>true</static>
+            <link name='ground'>
+                <pose>0 0 0 0 0 0</pose>
+                <enable_wind>false</enable_wind>
+                <visual name='visual'>
+                    <geometry>
+                        <plane>
+                            <normal>0 0 1</normal>
+                            <size>100 100</size>
+                        </plane>
+                    </geometry>
+                    <material>
+                        <ambient>0.8 0.8 0.8 1</ambient>
+                        <diffuse>0.8 0.8 0.8 1</diffuse>
+                        <specular>0.8 0.8 0.8 1</specular>
+                        <emissive>0.0 0.0 0.0 1</emissive>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <plane>
+                            <normal>0 0 1</normal>
+                            <size>100 100</size>
+                        </plane>
+                    </geometry>
+                    <surface>
+                        <friction>
+                            <ode>
+                            </ode>
+                        </friction>
+                        <bounce/>
+                        <contact/>
+                    </surface>
+                </collision>
+                <inertial>
+                    <pose>0 0 0 0 0 0</pose>
+                    <mass>1</mass>
+                    <inertia>
+                        <ixx>1</ixx>
+                        <ixy>0</ixy>
+                        <ixz>0</ixz>
+                        <iyy>1</iyy>
+                        <iyz>0</iyz>
+                        <izz>1</izz>
+                    </inertia>
+                </inertial>
+            </link>
+        </model>
+
+        <light type="directional" name="sun">
+            <cast_shadows>true</cast_shadows>
+            <pose>0 0 10 0 0 0</pose>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+            <attenuation>
+                <range>1000</range>
+                <constant>0.9</constant>
+                <linear>0.01</linear>
+                <quadratic>0.001</quadratic>
+            </attenuation>
+            <direction>-0.5 0.1 -0.9</direction>
+        </light>
+
+        <gui fullscreen="0">
+            <!-- 3D scene -->
+            <plugin filename="MinimalScene" name="3D View">
+                <ignition-gui>
+                    <title>3D View</title>
+                    <property type="bool" key="showTitleBar">false</property>
+                    <property type="string" key="state">docked</property>
+                </ignition-gui>
+                <engine>ogre2</engine>
+                <scene>scene</scene>
+                <ambient_light>0.4 0.4 0.4</ambient_light>
+                <background_color>0.8 0.8 0.8</background_color>
+                <camera_pose>-6 0 6 0 0.5 0</camera_pose>
+                <camera_clip>
+                    <near>0.25</near>
+                    <far>25000</far>
+                </camera_clip>
+            </plugin>
+            <plugin filename="GzSceneManager" name="Scene Manager">
+                <ignition-gui>
+                    <property key="resizable" type="bool">false</property>
+                    <property key="width" type="double">5</property>
+                    <property key="height" type="double">5</property>
+                    <property key="state" type="string">floating</property>
+                    <property key="showTitleBar" type="bool">false</property>
+                </ignition-gui>
+            </plugin>
+
+            <!-- World control -->
+            <plugin filename="WorldControl" name="World control">
+                <ignition-gui>
+                    <title>World control</title>
+                    <property type="bool" key="showTitleBar">false</property>
+                    <property type="bool" key="resizable">false</property>
+                    <property type="double" key="height">72</property>
+                    <property type="double" key="width">121</property>
+                    <property type="double" key="z">1</property>
+                    <property type="string" key="state">floating</property>
+                    <anchors target="3D View">
+                    <line own="left" target="left"/>
+                    <line own="bottom" target="bottom"/>
+                    </anchors>
+                </ignition-gui>
+                <play_pause>true</play_pause>
+                <step>true</step>
+                <start_paused>true</start_paused>
+                <service>/world/demo_world/control</service>
+                <stats_topic>/world/demo_world/stats</stats_topic>
+            </plugin>
+
+            <!-- World Statistics -->
+            <plugin filename="WorldStats" name="World stats">
+                <ignition-gui>
+                    <title>World Stats</title>
+                    <property type="bool" key="showTitleBar">false</property>
+                    <property type="bool" key="resizable">false</property>
+                    <property type="double" key="height">110</property>
+                    <property type="double" key="width">290</property>
+                    <property type="double" key="z">1</property>
+                    <property type="string" key="state">floating</property>
+                    <anchors target="3D View">
+                    <line own="right" target="right"/>
+                    <line own="bottom" target="bottom"/>
+                    </anchors>
+                </ignition-gui>
+                <sim_time>true</sim_time>
+                <real_time>true</real_time>
+                <real_time_factor>true</real_time_factor>
+                <iterations>true</iterations>
+                <topic>/world/demo_world/stats</topic>
+            </plugin>
+
+            <!-- Others -->
+            <plugin filename="EntityContextMenuPlugin" name="Entity context menu">
+            </plugin>
+
+            <!-- Pan the world -->
+            <plugin filename="InteractiveViewControl" name="Interactive view control">
+            </plugin>
+
+            <!-- Others -->
+            <plugin filename="CameraTracking" name="Camera Tracking">
+            </plugin>
+
+            <!-- Others -->
+            <plugin filename="MarkerManager" name="Marker manager">
+            </plugin>
+
+            <!-- Others -->
+            <plugin filename="SelectEntities" name="Select Entities">
+            </plugin>
+
+            <!-- Others -->
+            <plugin filename="Spawn" name="Spawn Entities">
+            </plugin>
+
+            <!-- Others -->
+            <plugin filename="VisualizationCapabilities" name="Visualization Capabilities">
+            </plugin>
+
+            <!-- Others -->
+            <plugin filename="Shapes" name="Shapes">
+            </plugin>
+
+            <!-- Others -->
+            <plugin filename="Lights" name="Lights">
+            </plugin>
+
+            <!-- Others -->
+            <plugin filename="TransformControl" name="Transform control">
+            </plugin>
+
+            <!-- Others -->
+            <plugin filename="Screenshot" name="Screenshot">
+            </plugin>
+            
+            <!-- Others -->
+            <plugin filename="CopyPaste" name="CopyPaste">
+            </plugin>
+
+            <!-- Others -->
+            
+            <!-- Others -->
+
+            <!-- Component Inspector -->
+            <plugin filename="ComponentInspector" name="Component Inspector">
+            </plugin>
+
+            <!-- Entity Tree -->
+            <plugin filename="EntityTree" name="Entity Tree">
+            </plugin>
+
+            <!-- Resource Spawner -->
+            <plugin filename="ResourceSpawner" name="Resource Spawner">
+            </plugin>
+
+        </gui>
+    
+    </world>
+
+</sdf>
+

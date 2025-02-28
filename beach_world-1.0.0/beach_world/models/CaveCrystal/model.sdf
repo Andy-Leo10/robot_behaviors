@@ -1,0 +1,26 @@
+<?xml version='1.0' ?>
+<sdf version="1.6">
+    <model name="Cave Crystal">
+        <static>false</static>
+        <link name="link">
+            <collision name="collision">
+                <pose>0 0 5 0 0 0</pose>
+                <geometry>
+                    <mesh>
+                        <uri>meshes/CaveCrystal.dae</uri>
+                        <scale>0.1 0.1 0.1</scale> <!-- Add scale here -->
+                    </mesh>
+                </geometry>
+            </collision>
+            <visual name="visual">
+                <pose>0 0 5 0 0 0</pose>
+                <geometry>
+                    <mesh>
+                        <uri>meshes/CaveCrystal.dae</uri>
+                        <scale>0.1 0.1 0.1</scale> <!-- Add scale here -->
+                    </mesh>
+                </geometry>
+            </visual>
+        </link>
+    </model>
+</sdf>

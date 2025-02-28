@@ -1,0 +1,115 @@
+# how to configure the controller server
+# https://docs.nav2.org/configuration/packages/configuring-controller-server.html
+controller_server:
+  ros__parameters:
+    use_sim_time: True
+    controller_frequency: 20.0 # Frequency in Hz at which the controller is expected to run
+    min_x_velocity_threshold: 0.001 # Minimum x velocity threshold, anything below this value is considered 0
+    min_y_velocity_threshold: 0.5 # Minimum y velocity threshold, anything below this value is considered 0
+    min_theta_velocity_threshold: 0.001 # Minimum theta velocity threshold, anything below this value is considered 0
+    failure_tolerance: 0.3 # Distance in meters to the goal that is considered close enough to succeed
+    progress_checker_plugin: "progress_checker" # Progress checker plugin and below its parameters
+    goal_checker_plugins: ["general_goal_checker"] # Goal checker plugins and below its parameters
+    controller_plugins: ["FollowPath"] # List of mapped plugin and below its parameters
+
+    # Progress checker parameters
+    progress_checker: # Checks whether the robot is stuck or has made progress towards the completion of the goal
+      plugin: "nav2_controller::SimpleProgressChecker"
+      required_movement_radius: 0.5 # Minimum distance the robot must move to be considered not stuck
+      movement_time_allowance: 10.0 # Time in seconds the robot has to move the required distance
+    # Goal checker parameters
+    general_goal_checker: # Checks whether the robot has reached the goal pose
+      stateful: True # Whether the goal checker is stateful or stateless
+      plugin: "nav2_controller::SimpleGoalChecker"
+      xy_goal_tolerance: 0.25 # How much error can be accepted on reaching the goal position
+      yaw_goal_tolerance: 0.25 # How much error can be accepted on reaching the goal orientation
+    # DWB parameters
+    # https://docs.nav2.org/configuration/packages/configuring-dwb-controller.html
+    FollowPath:
+      plugin: "dwb_core::DWBLocalPlanner"
+      debug_trajectory_details: True # Whether to publish detailed information about the trajectory
+      min_vel_x: 0.0 # Minimum x velocity
+      min_vel_y: 0.0 # Minimum y velocity
+      max_vel_x: 0.50 # Maximum x velocity
+      max_vel_y: 0.0 # Maximum y velocity
+      max_vel_theta: 1.0 # Maximum theta velocity
+      min_speed_xy: 0.0 # Minimum speed in the xy plane
+      max_speed_xy: 0.50 # Maximum speed in the xy plane
+      min_speed_theta: 0.0 # Minimum speed in the theta plane
+      acc_lim_x: 2.5 # Maximum x acceleration
+      acc_lim_y: 0.0 # Maximum y acceleration
+      acc_lim_theta: 3.2 # Maximum theta acceleration
+      decel_lim_x: -2.5 # Maximum x deceleration
+      decel_lim_y: 0.0 # Maximum y deceleration
+      decel_lim_theta: -3.2 # Maximum theta deceleration
+      vx_samples: 20 
+      vy_samples: 5
+      vtheta_samples: 20
+      sim_time: 1.7 
+      linear_granularity: 0.05 
+      angular_granularity: 0.025
+      transform_tolerance: 0.2
+      xy_goal_tolerance: 0.25 # How much error can be accepted on reaching the goal position
+      trans_stopped_velocity: 0.25
+      short_circuit_trajectory_evaluation: True
+      stateful: True
+      #robot_radius -> BaseObstacle
+      #footprint -> ObstacleFootprint     
+      # Critics are plugins that check the completion of different constraints in following the local path
+      critics: ["RotateToGoal", "Oscillation", "ObstacleFootprint", "GoalAlign", "PathAlign", "PathDist", "GoalDist"]
+      BaseObstacle.scale: 0.02 # Scaling factor for the obstacle cost
+      PathAlign.scale: 32.0 # Scaling factor for the path alignment cost
+      PathAlign.forward_point_distance: 0.1 # Distance in meters to look ahead for the path alignment cost
+      GoalAlign.scale: 24.0 # Scaling factor for the goal alignment cost
+      GoalAlign.forward_point_distance: 0.1 # Distance in meters to look ahead for the goal alignment cost
+      PathDist.scale: 32.0 # Scaling factor for the path distance cost
+      GoalDist.scale: 24.0 # Scaling factor for the goal distance cost
+      RotateToGoal.scale: 32.0 # Scaling factor for the goal rotation cost
+      RotateToGoal.slowing_factor: 5.0 # Factor to slow down the robot when rotating to the goal
+      RotateToGoal.lookahead_time: -1.0 # Time in seconds to look ahead for the goal rotation cost
+#LOCAL COSTMAP
+# https://docs.nav2.org/configuration/packages/configuring-costmaps.html
+local_costmap:
+  local_costmap:
+    ros__parameters:
+      update_frequency: 5.0 # Frequency in Hz at which the costmap is expected to be updated
+      publish_frequency: 2.0 # Frequency in Hz at which the costmap is expected to be published
+      global_frame: odom # Reference frame for the local costmap
+      robot_base_frame: body_link # Reference frame for the robot
+      use_sim_time: True
+      rolling_window: true # Whether the costmap should be a rolling window
+      width: 3 # Width of the costmap in meters (int)
+      height: 3 # Height of the costmap in meters (int)
+      resolution: 0.05 # Resolution of 1px of the costmap in meters
+      #robot_radius: 0.15
+      # the rosbot-xl size is W=0.325m, L=0.332m
+      footprint: '[ [0.166, 0.166], [0.166, -0.166], [-0.166, -0.166], [-0.166, 0.166] ]'
+      plugins: ["voxel_layer", "inflation_layer"] # List of mapped plugin and below its parameters
+      static_layer: # Adds as obstacles to the Local Costmap any black dot that exists in the static map
+        map_subscribe_transient_local: True # QoS setting for the map
+      voxel_layer: # Adds to the Local Costmap 3D obstacles from PointCloud data
+        plugin: "nav2_costmap_2d::VoxelLayer"
+        enabled: True # Whether it is enabled or not
+        publish_voxel_map: True # Whether to publish the voxel map
+        origin_z: 0.0 # Origin of the costmap in the z axis
+        z_resolution: 0.05 # Resolution of 1px of the costmap in the z axis
+        z_voxels: 16 # Number of voxels in the z axis
+        max_obstacle_height: 2.0 # Maximum height of an obstacle
+        mark_threshold: 0 # Threshold for marking obstacles
+        observation_sources: scan # List of sensors that provide data to the layer
+        scan:
+          topic: /scan_filtered # Topic where the data is published
+          max_obstacle_height: 2.0 # Maximum height of an obstacle
+          clearing: True # Whether to clear the costmap when an obstacle is not detected
+          marking: True # Whether to mark the costmap when an obstacle is detected
+          data_type: "LaserScan" # The data type of input, LaserScan or PointCloud2
+          raytrace_max_range: 40.0 # Maximum range for raytracing
+          raytrace_min_range: 0.0 # Minimum range for raytracing
+          obstacle_max_range: 15.0 # Maximum range for obstacles
+          obstacle_min_range: 0.290 # Minimum range for obstacles
+      inflation_layer: # Adds an inflation to any obstacle in the Local Costmap, as a safe distance to maintain
+        plugin: "nav2_costmap_2d::InflationLayer" 
+        cost_scaling_factor: 3.0 # Exponential decay factor across the inflation radius
+        inflation_radius: 0.35 # Radius to inflate Costmap around lethal obstacles      
+      always_send_full_costmap: True # Always send the full costmap to the controller
+        

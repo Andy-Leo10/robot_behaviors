@@ -1,0 +1,8 @@
+# Exclude beach world because it is too large
+# /beach_world-1.0.0/beach_world/models
+
+# Exclude venv directory
+.venv
+
+# Exclude all files with the .pt extension
+*.pt

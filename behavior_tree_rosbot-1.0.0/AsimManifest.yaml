@@ -1,0 +1,30 @@
+name: "behavior_tree_rosbot"
+displayName: "behavior_tree_rosbot"
+description: "Behavior tree"
+asset-type: "Other"
+version: "1.0.0"
+license: "Apache License 2.0"
+created: "2024-12-05T20:12:13.727Z"
+lastEdited: "2024-12-05T20:12:13.741Z"
+repackaged: "2024-12-05T20:12:13.741Z"
+ROS-compatibility:
+  - "ROS 2 Humble Hawksbill"
+simulator-compatibility:
+  - "Gazebo Fortress"
+source: "Private"
+creator: "Andrés Leonardo Alamo Guizado"
+ownerAID: ""
+tags: []
+size: "**"
+codeLanguage: ""
+complexity: "High"
+folderSize: 183369
+demo: ""
+rosCompatibility: &a1
+  - "ROS 2 Humble Hawksbill"
+simulatorCompatibility: &a2
+  - "Gazebo Fortress"
+ROS-Compatibility: *a1
+Simulator-Compatibility: *a2
+image_filenames:
+  - "1.png"

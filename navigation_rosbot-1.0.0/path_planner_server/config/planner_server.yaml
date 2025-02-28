@@ -1,0 +1,52 @@
+# how to configure the planner server
+# https://docs.nav2.org/configuration/packages/configuring-planner-server.html
+planner_server:
+  ros__parameters:
+    expected_planner_frequency: 20.0 # Frequency in Hz at which the planner is expected to run
+    use_sim_time: True 
+    planner_plugins: ["GridBased"] # List of mapped plugin and below its parameters
+    GridBased:
+      plugin: "nav2_navfn_planner/NavfnPlanner" # Plugin name
+      tolerance: 0.5 # Tolerance in meters between the goal pose and the end of the path
+      use_astar: false # Use A* instead of Dijkstra
+      allow_unknown: true # Allow the planner to plan through unknown space
+#GLOBAL COSTMAP
+# https://docs.nav2.org/configuration/packages/configuring-costmaps.html
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      update_frequency: 1.0 # Frequency in Hz at which the costmap is expected to be updated
+      publish_frequency: 1.0 # Frequency in Hz at which the costmap is expected to be published
+      global_frame: map # Reference frame for the global costmap
+      robot_base_frame: body_link # Reference frame for the robot
+      use_sim_time: True
+      #robot_radius: 0.15
+      # the rosbot-xl size is W=0.325m, L=0.332m
+      footprint: '[ [0.166, 0.166], [0.166, -0.166], [-0.166, -0.166], [-0.166, 0.166] ]'
+      resolution: 0.05 # Resolution of 1px of the costmap in meters
+      track_unknown_space: true
+      plugins: ["static_layer", "obstacle_layer", "inflation_layer"] # List of mapped plugin and below its parameters
+      static_layer: # Adds as obstacles to the Global Costmap any black dot that exists in the static map
+        plugin: "nav2_costmap_2d::StaticLayer"
+        map_subscribe_transient_local: True # QoS setting for the map
+      obstacle_layer: # Adds to the Global Costmap any object detected by a 2D sensor
+        plugin: "nav2_costmap_2d::ObstacleLayer"
+        enabled: True # Whether it is enabled or not
+        observation_sources: scan # List of sensors that provide data to the layer
+        scan:
+          topic: /scan_filtered # Topic where the data is published
+          max_obstacle_height: 2.0 # Maximum height of an obstacle
+          clearing: True # Whether to clear the costmap when an obstacle is not detected
+          marking: True # Whether to mark the costmap when an obstacle is detected
+          data_type: "LaserScan" # The data type of input, LaserScan or PointCloud2
+          raytrace_max_range: 40.0 # Maximum range for raytracing
+          raytrace_min_range: 0.0 # Minimum range for raytracing
+          obstacle_max_range: 15.0 # Maximum range for obstacles
+          obstacle_min_range: 0.290 # Minimum range for obstacles
+      # voxel_layer: # Adds to the Global Costmap 3D obstacles from PointCloud data       
+      inflation_layer: # Adds an inflation to any obstacle in the Global Costmap, as a safe distance to maintain
+        plugin: "nav2_costmap_2d::InflationLayer"
+        cost_scaling_factor: 3.0 # Exponential decay factor across the inflation radius
+        inflation_radius: 0.35 # Radius to inflate Costmap around lethal obstacles
+      always_send_full_costmap: True # Always send the full costmap to the controller
+

@@ -1,0 +1,304 @@
+<sdf version='1.9'>
+  <world name='beach_world'>
+    <physics name='1ms' type='ignored'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <plugin name='gz::sim::systems::Physics' filename='ignition-gazebo-physics-system'/>
+    <plugin name='gz::sim::systems::UserCommands' filename='ignition-gazebo-user-commands-system'/>
+    <plugin name='gz::sim::systems::SceneBroadcaster' filename='ignition-gazebo-scene-broadcaster-system'/>
+    <plugin name='gz::sim::systems::Sensors' filename='ignition-gazebo-sensors-system'/>
+    <plugin name='gz::sim::systems::Contact' filename='ignition-gazebo-contact-system'/>
+    <plugin name='gz::sim::systems::Imu' filename='ignition-gazebo-imu-system'/>
+    <plugin name='gz::sim::systems::ShaderParam' filename='libignition-gazebo-shader-param-system.so'>
+      <entity>coast_water</entity>
+      <param name='water_color' type='color'>0.0 0.3 0.5 1.0</param>
+      <param name='wave_speed' type='float'>0.1</param>
+      <param name='wave_height' type='float'>0.02</param>
+    </plugin>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <world_frame_orientation>ENU</world_frame_orientation>
+      <latitude_deg>50.088279999999997</latitude_deg>
+      <longitude_deg>19.938931</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <scene>
+      <ambient>0.8 0.8 0.8 1</ambient>
+      <background>0 0 0 1</background>
+      <sky>
+        <clouds>
+          <speed>12</speed>
+          <direction>0.5</direction>
+          <humidity>0.5</humidity>
+          <mean_size>0.5</mean_size>
+        </clouds>
+        <sunrise>6</sunrise>
+        <sunset>18</sunset>
+      </sky>
+      <grid>false</grid>
+      <shadows>true</shadows>
+    </scene>
+    <gui fullscreen='false'>
+      <camera name='gui_camera'>
+        <pose>25.2459 0.588279 23.8295 0 0.925797 -2.86917</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <model name='ground_plane'>
+      <pose>0 0 0 0 -0 1.5709</pose>
+      <self_collide>false</self_collide>
+      <static>true</static>
+      <link name='ground'>
+        <pose>0 0 0 0 -0 0</pose>
+        <enable_wind>false</enable_wind>
+        <visual name='visual'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/tent</uri>
+      <name>tent</name>
+      <pose>3.64289 -13 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/ground_station</uri>
+      <name>ground_station</name>
+      <pose>-4.47848 -12.8422 0 0 -0 1.5708</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Salon</uri>
+      <name>salon</name>
+      <pose>6.63318 13.877 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Law office</uri>
+      <name>law_office</name>
+      <pose>-2.58062 14.1321 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree</name>
+      <pose>13.9695 0.149399 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_0</name>
+      <pose>9.64335 0.042789 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_1</name>
+      <pose>7.11174 0.227482 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_2</name>
+      <pose>4.38403 -0.06032 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_3</name>
+      <pose>1.92178 0.05349 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_4</name>
+      <pose>12.1416 0.060116 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_5</name>
+      <pose>-0.765244 0.130277 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_6</name>
+      <pose>-3.78772 0.033877 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_7</name>
+      <pose>-6.81085 0.128674 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_8</name>
+      <pose>-9.71367 0.107176 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Playground</uri>
+      <name>playground</name>
+      <pose>18.5066 14.6499 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/RetailKiosk2</uri>
+      <name>RetailKiosk2</name>
+      <pose>-0.464235 -12.8116 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/RetailKiosk1</uri>
+      <name>RetailKiosk1</name>
+      <pose>7.12697 -13.5478 0 0 -0 1.5708</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/OSRF First Office</uri>
+      <name>osrf_first_office</name>
+      <pose>-18.8439 22.1869 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/asimovo/install/beach_world/share/beach_world/models/sand_heightmap</uri>
+      <name>sand_heightmap</name>
+      <pose>0 -35 0.01 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/asimovo/install/beach_world/share/beach_world/models/waves</uri>
+      <name>waves</name>
+      <pose>0 -100 0.02 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/asimovo/install/beach_world/share/beach_world/models/WatchTower</uri>
+      <name>Watch Tower</name>
+      <pose>0.769645 -23.7607 -0.49887 0.025309 0.064772 0.001987</pose>
+    </include>
+    <include>
+      <uri>file:///home/asimovo/install/beach_world/share/beach_world/models/CaveCrystal</uri>
+      <name>Cave Crystal</name>
+      <pose>-40.6233 -42.1959 -0.880908 0.013246 0.015125 -0.404509</pose>
+    </include>
+    <include>
+      <uri>file:///home/asimovo/install/beach_world/share/beach_world/models/CaveCrystal</uri>
+      <name>Cave Crystal_0</name>
+      <pose>-44.2391 -45.7714 -0.89694 0.024604 -0.002804 -0.472833</pose>
+    </include>
+    <include>
+      <uri>file:///home/asimovo/install/beach_world/share/beach_world/models/CaveCrystal</uri>
+      <name>Cave Crystal_1</name>
+      <pose>-43.9074 -38.5873 -0.908273 0.002931 0.002611 0.496438</pose>
+    </include>
+    <include>
+      <uri>file:///home/asimovo/install/beach_world/share/beach_world/models/CaveCrystal</uri>
+      <name>Cave Crystal_2</name>
+      <pose>41.0583 -46.3274 -0.900228 -0.001984 -0.002507 -0.732837</pose>
+    </include>
+    <include>
+      <uri>file:///home/asimovo/install/beach_world/share/beach_world/models/CaveCrystal</uri>
+      <name>Cave Crystal_3</name>
+      <pose>41.1195 -39.3197 -0.893491 0.030851 -8.2e-05 0.950042</pose>
+    </include>
+    <include>
+      <uri>file:///home/asimovo/install/beach_world/share/beach_world/models/CaveCrystal</uri>
+      <name>Cave Crystal_4</name>
+      <pose>33.8645 -40.7579 -0.800086 -0.009593 0.007535 0.946715</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pier</uri>
+      <name>pier</name>
+      <pose>-2.69787 -66.9143 -6.14834 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/ground_station</uri>
+      <name>ground_station_1</name>
+      <pose>22.8354 -12.9979 0 0 -0 1.5708</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/ground_station</uri>
+      <name>ground_station_2</name>
+      <pose>-26.8531 -12.882 0 0 -0 1.5708</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/tent</uri>
+      <name>tent_3</name>
+      <pose>13.5341 -24.9882 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/tent</uri>
+      <name>tent_4</name>
+      <pose>36.4621 -25.3317 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/tent</uri>
+      <name>tent_5</name>
+      <pose>25.1438 -24.7553 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/tent</uri>
+      <name>tent_6</name>
+      <pose>-23.9262 -23.2027 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/tent</uri>
+      <name>tent_7</name>
+      <pose>-38.4299 -22.9657 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/tent</uri>
+      <name>tent_8</name>
+      <pose>-10.9008 -23.7156 0 0 -0 0</pose>
+    </include>
+    <light name='sun' type='directional'>
+      <pose>0 0 10 0 -0 0</pose>
+      <cast_shadows>true</cast_shadows>
+      <intensity>1</intensity>
+      <direction>-0.5 0.1 -0.9</direction>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <linear>0.01</linear>
+        <constant>0.90000000000000002</constant>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+  </world>
+</sdf>

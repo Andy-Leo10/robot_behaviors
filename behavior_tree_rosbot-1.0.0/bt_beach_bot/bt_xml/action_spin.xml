@@ -1,0 +1,8 @@
+<root BTCPP_format="4">
+    <BehaviorTree ID="MainTree">
+        <Fallback name="Fallback_1">
+            <Spin name="SpinX" action_name="spin" target_yaw="6.66" time_allowance_sec="5"/>
+            <Spin name="SpinY" action_name="spin" target_yaw="-6.66" time_allowance_sec="20"/>
+        </Fallback>
+    </BehaviorTree>
+</root>

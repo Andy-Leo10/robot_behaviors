@@ -1,0 +1,30 @@
+name: "navigation_rosbot"
+displayName: "navigation_rosbot"
+description: "Autonomous navigation pkgs"
+asset-type: "Other"
+version: "1.0.0"
+license: "Apache License 2.0"
+created: "2024-12-03T18:36:45.686Z"
+lastEdited: "2024-12-03T18:36:45.756Z"
+repackaged: "2024-12-03T18:36:45.756Z"
+ROS-compatibility:
+  - "ROS 2 Humble Hawksbill"
+simulator-compatibility:
+  - "Gazebo Fortress"
+source: "Private"
+creator: "Andrés Leonardo Alamo Guizado"
+ownerAID: ""
+tags: []
+size: "**"
+codeLanguage: ""
+complexity: "High"
+folderSize: 590472
+demo: ""
+rosCompatibility: &a1
+  - "ROS 2 Humble Hawksbill"
+simulatorCompatibility: &a2
+  - "Gazebo Fortress"
+ROS-Compatibility: *a1
+Simulator-Compatibility: *a2
+image_filenames:
+  - "1.png"

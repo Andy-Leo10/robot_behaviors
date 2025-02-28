@@ -1,0 +1,49 @@
+/global_costmap/global_costmap:
+    ros__parameters:
+      inflation_layer:
+        cost_scaling_factor: 3.0 # 3.0
+        inflation_radius: 0.35 # 0.35
+        enabled: True # True
+        inflate_around_unknown: False # False
+        inflate_unknown: False # False
+
+/local_costmap/local_costmap:
+    ros__parameters:
+      width: 3 # Width of the costmap in meters (int)
+      height: 3 # Height of the costmap in meters (int)
+      inflation_layer:
+        cost_scaling_factor: 3.0 # 3.0
+        inflation_radius: 0.35 # 0.35
+        enabled: True # True
+        inflate_around_unknown: False # False
+        inflate_unknown: False # False
+      voxel_layer:
+        scan:
+          obstacle_min_range: 0.290 # 0.290
+
+/controller_server:
+  ros__parameters:
+    min_x_velocity_threshold: 0.001 # Minimum x velocity threshold, anything below this value is considered 0
+    min_y_velocity_threshold: 0.5 # Reduced to allow smoother navigation
+    min_theta_velocity_threshold: 0.001 # Minimum theta velocity threshold, anything below this value is considered 0
+    failure_tolerance: 0.5 # Increased to allow more tolerance to the goal
+
+    # Progress checker parameters
+    progress_checker: # Checks whether the robot is stuck or has made progress towards the completion of the goal
+      required_movement_radius: 0.5 # Increased to allow more movement before considering stuck
+      movement_time_allowance: 10.0 # Increased to allow more time for movement
+
+    # FollowPath controller parameters
+    FollowPath:
+      BaseObstacle.scale: 0.02 # Scaling factor for the obstacle cost
+      PathAlign.scale: 32.0 # Scaling factor for the path alignment cost
+      PathAlign.forward_point_distance: 0.1 # Distance in meters to look ahead for the path alignment cost
+      GoalAlign.scale: 24.0 # Scaling factor for the goal alignment cost
+      GoalAlign.forward_point_distance: 0.1 # Distance in meters to look ahead for the goal alignment cost
+      PathDist.scale: 32.0 # Scaling factor for the path distance cost
+      GoalDist.scale: 24.0 # Scaling factor for the goal distance cost
+      RotateToGoal.scale: 32.0 # Scaling factor for the goal rotation cost
+      RotateToGoal.slowing_factor: 5.0 # Factor to slow down the robot when rotating to the goal
+      RotateToGoal.lookahead_time: -1.0 # Time in seconds to look ahead for the goal rotation cost
+
+# ros2 param load /global_costmap/global_costmap parameters.yaml; ros2 param load /local_costmap/local_costmap parameters.yaml ; ros2 param load /controller_server parameters.yaml

@@ -1,0 +1,107 @@
+<!-- https://www.behaviortree.dev/docs/guides/pre_post_conditions/ -->
+
+<root BTCPP_format="4" main_tree_to_execute="MainTree">
+    <BehaviorTree ID="MainTree">
+        <Sequence>
+            <SubTree ID="SelfLocalization" name="self_localization"/>
+            <!-- <SubTree ID="NavigateAndInspect" name="north" x="-3.052" y="-0.077" theta="-1.583"/> -->
+            <SubTree ID="NavigateAndInspect" name="west" x="0.357" y="-3.596" theta="0.017"/>
+            <!-- <SubTree ID="NavigateAndInspect" name="south" x="3.933" y="-0.040" theta="-0.555"/> -->
+            <SubTree ID="NavigateAndInspect" name="east" x="1.026" y="2.507" theta="0.130"/>
+        </Sequence>
+    </BehaviorTree>
+
+    <!-- SubTree for the Self Localization -->
+    <BehaviorTree ID="SelfLocalization">
+        <RetryUntilSuccessful num_attempts="3">
+            <Sequence>
+                <ReinitializeLocalization name="ReinitializeLocalization" service_name="/reinitialize_global_localization"/>
+                <Spin name="Spin" action_name="spin" target_yaw="8.88" time_allowance_sec="15"/>
+            </Sequence>
+        </RetryUntilSuccessful>
+    </BehaviorTree>
+
+    <!-- SubTree for the Navigate and Inspect Objects -->
+    <BehaviorTree ID="NavigateAndInspect">
+        <RetryUntilSuccessful num_attempts="-1">
+            <Sequence>
+                <ReceiveString name="ReceiveString" topic_name="my_object_detected" message="{detection}"/>
+                <SubTree ID="HandleDetection" detection="{detection}"/>
+                <Parallel success_count="1" failure_count="1">
+                    <GoToPose name="GoToPose" action_name="navigate_to_pose" x="{x}" y="{y}" theta="{theta}"/>
+                    <Repeat num_cycles="-1">
+                        <Delay delay_msec="1000"> <!-- Adjust the delay for the inspection interval -->
+                            <Sequence>
+                                <ReceiveString name="ReceiveString" topic_name="my_object_detected" message="{detection}"/>
+                                <SendString name="SendString" topic_name="my_topic" msg="{detection}"/>
+                                <SubTree ID="DetectionSwitch" detection="{detection}"/>
+                            </Sequence>
+                        </Delay>
+                    </Repeat>
+                </Parallel>
+            </Sequence>
+        </RetryUntilSuccessful>
+    </BehaviorTree>
+
+    <!-- SubTree for handling detection actions -->
+    <BehaviorTree ID="HandleDetection">
+        <Sequence>
+            <SendString name="NotifyPerson" topic_name="my_topic" msg="Performing wait ....................." _skipIf="detection != 'person'"/>
+            <Wait name="Wait" action_name="wait" time_sec="5" _skipIf="detection != 'person'"/>
+            <!-- other actions for other detections -->
+            <SendString name="NotifyCar" topic_name="my_topic" msg="Car Action ....................." _skipIf="detection != 'car'"/>
+            <SendString name="NotifyBicycle" topic_name="my_topic" msg="Bicycle Action ....................." _skipIf="detection != 'bicycle'"/>
+            <SendString name="NotifyDefault" topic_name="my_topic" msg="Default Action ....................." _skipIf="detection != 'nothing'"/>
+        </Sequence>
+    </BehaviorTree>
+
+    <!-- SubTree for the switch based on the detection -->
+    <BehaviorTree ID="DetectionSwitch">
+        <Switch3 name="SimpleSwitch" variable="{detection}" case_1="person" case_2="car" case_3="bicycle">
+            <Sequence name="case_1">
+                <ForceFailure>
+                    <SendString name="NotifyPerson" topic_name="my_topic" msg="Person detected --------------------"/>
+                </ForceFailure>
+            </Sequence>
+            <Sequence name="case_2">
+                <SendString name="NotifyCar" topic_name="my_topic" msg="Car detected"/>
+            </Sequence>
+            <Sequence name="case_3">
+                <SendString name="NotifyBicycle" topic_name="my_topic" msg="Bicycle detected"/>
+            </Sequence>
+            <Sequence name="default">
+                <SendString name="NotifyDefault" topic_name="my_topic" msg="Default case"/>
+            </Sequence>
+        </Switch3>
+    </BehaviorTree>
+
+    <!-- Description of Node Models (used by Groot) -->
+    <TreeNodesModel>
+        <Action ID="GoToPose" editable="true">
+            <input_port name="action_name"/>
+            <input_port name="x"/>
+            <input_port name="y"/>
+            <input_port name="theta"/>
+        </Action>
+        <Condition ID="ReceiveString" editable="true">
+            <input_port name="topic_name"/>
+            <output_port name="message"/>
+        </Condition>
+        <Condition ID="SendString" editable="true">
+            <input_port name="topic_name"/>
+            <input_port name="msg"/>
+        </Condition>
+        <Action ID="Spin" editable="true">
+            <input_port name="action_name"/>
+            <input_port name="target_yaw"/>
+            <input_port name="time_allowance_sec"/>
+        </Action>
+        <Action ID="Wait" editable="true">
+            <input_port name="action_name"/>
+            <input_port name="time_sec"/>
+        </Action>
+        <Action ID="ReinitializeLocalization" editable="true">
+            <input_port name="service_name"/>
+        </Action>
+    </TreeNodesModel>
+</root>

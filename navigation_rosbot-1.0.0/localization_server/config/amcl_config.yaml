@@ -1,0 +1,39 @@
+amcl:
+  ros__parameters:
+    use_sim_time: True  # Use simulated time
+    alpha1: 0.2  # Expected noise in odometry's rotation estimate from the rotational component of the robot's motion
+    alpha2: 0.2  # Expected noise in odometry's rotation estimate from the translational component of the robot's motion
+    alpha3: 0.2  # Expected noise in odometry's translation estimate from the translational component of the robot's motion
+    alpha4: 0.2  # Expected noise in odometry's translation estimate from the rotational component of the robot's motion
+    alpha5: 0.2  # Translation-related noise parameter (only used if model is "omni")
+    base_frame_id: "base_link"  # Frame to use for the robot base
+    beam_skip_distance: 0.5  # Distance for beam skipping
+    beam_skip_error_threshold: 0.9  # Error threshold for beam skipping
+    beam_skip_threshold: 0.3  # Threshold for beam skipping
+    do_beamskip: false  # Enable or disable beam skipping
+    global_frame_id: "map"  # Coordinate frame published by the localization system
+    lambda_short: 0.1  # Exponential decay parameter for z_short part of the model
+    laser_likelihood_max_dist: 2.0  # Maximum distance to do obstacle inflation on a map, for use in likelihood_field model
+    laser_max_range: 40.0  # Maximum scan range to be considered
+    laser_min_range: -1.0  # Minimum scan range to be considered
+    laser_model_type: "likelihood_field"  # Model to use: beam, likelihood_field, or likelihood_field_prob
+    max_beams: 60  # Number of evenly-spaced beams in each scan used when updating the filter
+    max_particles: 8000  # Maximum allowed number of particles
+    min_particles: 500  # Minimum allowed number of particles
+    odom_frame_id: "odom"  # Frame to use for odometry
+    pf_err: 0.05  # Error threshold for particle filter
+    pf_z: 0.99  # Z threshold for particle filter
+    recovery_alpha_fast: 0.0  # Exponential decay rate for the fast average weight filter
+    recovery_alpha_slow: 0.0  # Exponential decay rate for the slow average weight filter
+    resample_interval: 1  # Number of filter updates required before re-sampling
+    robot_model_type: "nav2_amcl::DifferentialMotionModel"  # Model to use: differential or omnidirectional
+    save_pose_rate: 0.5  # Maximum rate (Hz) at which to store the last estimated pose and covariance
+    sigma_hit: 0.2  # Standard deviation for Gaussian model used in z_hit part of the model
+    tf_broadcast: true  # Set to false to prevent AMCL from publishing the transform between the global frame and the odometry frame
+    transform_tolerance: 1.0  # Time with which to post-date the transform that is published
+    update_min_a: 0.2  # Rotational movement required before performing a filter update
+    update_min_d: 0.25  # Translational movement required before performing a filter update
+    z_hit: 0.5  # Mixture weight for z_hit part of the model
+    z_max: 0.05  # Mixture weight for the z_max part of the model
+    z_rand: 0.5  # Mixture weight for the z_rand part of the model
+    z_short: 0.05  # Mixture weight for the z_short part of the model

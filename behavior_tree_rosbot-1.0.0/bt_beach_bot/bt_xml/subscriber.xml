@@ -1,0 +1,14 @@
+<root BTCPP_format="4">
+    <BehaviorTree>
+        <Fallback>
+            <Sequence>
+                <ReceiveString name="P" topic_name="my_topic"/>                                        
+            </Sequence>
+            <RetryUntilSuccessful num_attempts="100">
+                <Sequence>
+                    <ReceiveString name="P" topic_name="my_topic"/>                                         
+                </Sequence>
+            </RetryUntilSuccessful>
+        </Fallback>  
+    </BehaviorTree>
+</root>

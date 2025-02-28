@@ -1,0 +1,32 @@
+name: "maze_world"
+displayName: "Maze"
+description: "This environment comprises a maze that presents an exceptional opportunity for training robots for diverse applications. It serves as an ideal platform for land robots to learn navigation and aerial robots to develop their image recognition abilities. It is a preferred choice for robotics and researchers who aim to enhance their robots' performance in a challenging setting."
+version: "1.0.0"
+license: "MIT"
+tags:
+  - "Land Robots"
+  - "Physics"
+  - "Sensors"
+  - "Environment"
+  - "SystemDefault"
+created: "2024-11-26T20:25:16.302Z"
+lastEdited: "2024-11-26T20:25:16.326Z"
+repackaged: "2024-11-26T20:25:16.326Z"
+asset-type: "Environment"
+ROS-compatibility:
+  - "ROS 2 Humble Hawksbill"
+  - "ROS 2 Galactic Geochelone"
+  - "ROS 2 Iron Irwini"
+simulator-compatibility:
+  - "Gazebo Fortress"
+  - "Gazebo Harmonic"
+  - "Gazebo Garden"
+source: "Public"
+creator: "Asimovo"
+complexity: "Low"
+image_filenames:
+  - "1.png"
+  - "2.png"
+  - "3.png"
+  - "4.png"
+folderSize: 267569

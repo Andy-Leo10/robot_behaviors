@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="2">
+  <name>metapkg-component</name>
+  <version>1.0.0</version>
+  <description>A package to aggregate all packages in my_project.</description>
+  <maintainer email="andres@asimovo.com">Andrés Alamo</maintainer>
+  <license>Apache License 2.0</license>
+  
+  <!-- packages in my_project -->
+  <exec_depend>cartographer_slam</exec_depend>
+  <exec_depend>map_server</exec_depend>
+  <exec_depend>localization_server</exec_depend>
+  <exec_depend>path_planner_server</exec_depend>
+  <exec_depend>nav2_apps</exec_depend>
+  <exec_depend>nav2_slam</exec_depend>
+  <exec_depend>behaviortree_cpp</exec_depend>
+  <exec_depend>bt_practice</exec_depend>
+  <exec_depend>behaviortree_ros2</exec_depend>
+  <exec_depend>bt_beach_bot</exec_depend>
+  <!-- <exec_depend>PACKAGE_NAME</exec_depend> -->
+  <!-- packages from binaries -->
+  <exec_depend>cartographer_ros</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

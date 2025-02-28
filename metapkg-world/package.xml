@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="2">
+  <name>metapkg-world</name>
+  <version>1.0.0</version>
+  <description>A package to aggregate all packages in my_project.</description>
+  <maintainer email="andres@asimovo.com">Andrés Alamo</maintainer>
+  <license>Apache License 2.0</license>
+  
+  <!-- packages in my_project -->
+  <exec_depend>beach_world</exec_depend>
+  <exec_depend>empty_world</exec_depend>
+  <exec_depend>house_world</exec_depend>
+  <exec_depend>maze_world</exec_depend>
+  <!-- packages from binaries -->
+  <!-- <exec_depend>nav2_msgs</exec_depend>
+  <exec_depend>nav2_controller</exec_depend> -->
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

@@ -1,0 +1,8 @@
+<root BTCPP_format="4">
+    <BehaviorTree ID="MainTree">
+        <Sequence>
+            <SleepAction action_name="sleep_service" name="sleep_1" msec="5000" />
+            <SleepAction action_name="sleep_service" name="sleep_2" msec="8000" />
+        </Sequence>
+    </BehaviorTree>
+</root>

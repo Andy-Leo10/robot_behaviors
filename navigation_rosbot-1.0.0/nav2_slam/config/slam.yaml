@@ -1,0 +1,73 @@
+# https://github.com/SteveMacenski/slam_toolbox
+slam_server:
+  ros__parameters:
+    # Plugin params
+    solver_plugin: solver_plugins::CeresSolver # Type of nonlinear solver
+    ceres_linear_solver: SPARSE_NORMAL_CHOLESKY # Type of linear solver
+    ceres_preconditioner: SCHUR_JACOBI # Type of preconditioner
+    ceres_trust_strategy: LEVENBERG_MARQUARDT # Type of trust region strategy
+    ceres_dogleg_type: TRADITIONAL_DOGLEG # Type of dogleg strategy
+    ceres_loss_function: None # Type of loss function
+
+    # ROS Parameters
+    odom_frame: odom # Odometry frame
+    map_frame: map # Map frame
+    base_frame: base_link # Base frame
+    scan_topic: /scan_filtered #/scan
+    mode: mapping #localization
+
+    # if you'd like to immediately start continuing a map at a given pose
+    # or at the dock, but they are mutually exclusive, if pose is given
+    # will use pose
+    # scan_queue_size: 1
+    # map_file_name: /home/aayli/Husarion/ros2_ws/src/tutorial_pkg/maps/map_serialized
+    # map_start_pose: [0.0, 0.0, 0.0]
+    # map_start_at_dock: true
+    debug_logging: true
+
+    throttle_scans: 1 # Number of scans to throttle in async mode
+    transform_publish_period: 0.02 # If 0 never publishes odometry
+    map_update_interval: 2.0 # Interval to update the 2D occupancy map
+    resolution: 0.05 # Resolution of the 2D occupancy grid
+    max_laser_range: 40.0 # Maximum range of the laser
+    minimum_time_interval: 0.1 # Minimum time between scans to be processed
+    transform_timeout: 0.2 # Time to wait for a transform to be available
+    tf_buffer_duration: 20.0 # Duration of the tf buffer
+    stack_size_to_use: 40000000 # Number of bytes to use for the stack
+    enable_interactive_mode: false 
+
+    # General Parameters
+    use_scan_matching: true # Wheter to use scan matching to refine odometric pose
+    use_scan_barycenter: true # Whether to use the barycenter or scan pose
+    minimum_travel_distance: 0.3 # Minimum distance to travel before performing scan matching
+    minimum_travel_heading: 0.5 # Minimum heading to travel before performing scan matching
+    scan_buffer_size: 10 # Number of scans to store in the scan buffer
+    scan_buffer_maximum_scan_distance: 15.0 # Maximum distance to scan match
+    link_match_minimum_response_fine: 0.1 # Minimum response to consider a link match
+    link_scan_maximum_distance: 1.0 # Maximum distance to consider a link scan
+    loop_search_maximum_distance: 3.0 # The threshold variance in coarse search to pass to refine
+    do_loop_closing: true # Whether to do loop closing
+    loop_match_minimum_chain_size: 10 # Minimum chain size to consider a loop closure
+    loop_match_maximum_variance_coarse: 3.0 # Maximum variance to consider a loop closure
+    loop_match_minimum_response_coarse: 0.35 # Minimum response to consider a loop closure
+    loop_match_minimum_response_fine: 0.45 # Minimum response to consider a loop closure
+
+    # Correlation Parameters - Correlation Parameters
+    correlation_search_space_dimension: 0.5 # Search grid size to do scan correlation over
+    correlation_search_space_resolution: 0.01 # Search grid resolution to do scan correlation over
+    correlation_search_space_smear_deviation: 0.1 # Amount of multimodal smearing to smooth out responses
+
+    # Correlation Parameters - Loop Closure Parameters
+    loop_search_space_dimension: 8.0 # Size of the search grid over the loop closure algorithm
+    loop_search_space_resolution: 0.05 # Search grid resolution to do loop closure over
+    loop_search_space_smear_deviation: 0.03 # Amount of multimodal smearing to smooth out responses
+
+    # Scan Matcher Parameters
+    distance_variance_penalty: 0.5 # A penalty to apply to a matched scan as it differs from the odometric pose
+    angle_variance_penalty: 1.0 # A penalty to apply to a matched scan as it differs from the odometric pose
+    fine_search_angle_offset: 0.00349 # Range of angles to test for fine scan matching
+    coarse_search_angle_offset: 0.349 # Range of angles to test for coarse scan matching
+    coarse_angle_resolution: 0.0349 # Resolution of angles over the Offset range to test in scan matching
+    minimum_angle_penalty: 0.9 # Minimum penalty to apply to a scan match
+    minimum_distance_penalty: 0.5 # Minimum penalty to apply to a scan match
+    use_response_expansion: true 

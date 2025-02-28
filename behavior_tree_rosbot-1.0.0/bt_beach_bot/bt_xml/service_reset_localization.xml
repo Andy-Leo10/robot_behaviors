@@ -1,0 +1,5 @@
+<root BTCPP_format="4">
+    <BehaviorTree ID="MainTree">
+        <ReinitializeLocalization service_name="/reinitialize_global_localization"/>
+    </BehaviorTree>
+</root>

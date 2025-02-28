@@ -1,0 +1,10 @@
+<root BTCPP_format="4">
+    <BehaviorTree ID="MainTree">
+        <Sequence>
+            <GoToPose name="north" action_name="navigate_to_pose" x="-1.628" y="2.775" theta="3.14" />
+            <GoToPose name="west" action_name="navigate_to_pose" x="-5.67" y="6.392" theta="-1.57" />
+            <GoToPose name="south" action_name="navigate_to_pose" x="-8.642" y="2.546" theta="3.24" />
+            <GoToPose name="east" action_name="navigate_to_pose" x="-4.874" y="-0.175" theta="3.24" />
+        </Sequence>
+    </BehaviorTree>
+</root>

@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+
+<sdf version='1.6'>
+  <world name='beach_world'>
+    <!-- <start_time>75600</start_time>  -->
+    <!-- 21:00 = 21*3600s -->
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>1000.0</real_time_update_rate>
+    </physics>
+
+    <plugin filename="ignition-gazebo-physics-system" name="gz::sim::systems::Physics" />
+    <plugin filename="ignition-gazebo-user-commands-system" name="gz::sim::systems::UserCommands" />
+    <plugin filename="ignition-gazebo-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster" />
+
+    <plugin filename="ignition-gazebo-sensors-system" name="gz::sim::systems::Sensors" />
+    <plugin filename="ignition-gazebo-contact-system" name="gz::sim::systems::Contact" />
+    <plugin filename="ignition-gazebo-imu-system" name="gz::sim::systems::Imu" />
+
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <world_frame_orientation>ENU</world_frame_orientation>
+      <latitude_deg>50.088280</latitude_deg>
+      <longitude_deg>19.938931</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+
+    <scene>
+      <ambient>0.8 0.8 0.8 1</ambient>
+      <background>0 0 0 1</background>
+      <!-- sky dome -->
+      <sky>
+        <clouds>
+            <speed>12</speed>
+            <direction>0.5 0.5</direction>
+            <humidity>0.5</humidity>
+            <mean_size>0.5</mean_size>
+        </clouds>
+        <sunrise>6.00</sunrise>
+        <sunset>18.00</sunset>
+      </sky>
+      <grid>0</grid>
+      <shadows>1</shadows>
+    </scene>
+
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose>0 0 10 0 -0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+
+    <gui fullscreen='0'>
+      <camera name='gui_camera'>
+        <pose>25.2459 0.588279 23.8295 0 0.925797 -2.86917</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+
+    <model name='ground_plane'>
+      <pose>0 0 0 0 -0 1.5709</pose>
+      <self_collide>false</self_collide>
+      <static>true</static>
+      <link name='ground'>
+        <pose>0 0 0 0 -0 0</pose>
+        <enable_wind>false</enable_wind>
+        <visual name='visual'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <!-- <diffuse>0.8 0.8 0.8 1</diffuse> -->
+            <diffuse>1 1 1 0</diffuse>
+            <specular>0.8 0.8 0.8 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode/>
+            </friction>
+            <bounce/>
+            <contact/>
+          </surface>
+        </collision>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+    
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/openrobotics/models/tent</uri>
+      <name>tent</name>
+      <pose>3.64289 -13 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>file:///home/asimovo/install/beach_world/share/beach_world/models/Road</uri>
+      <name>Road</name>
+      <pose>-1.07565 2.3725 -5.84935 0 0 -0</pose>
+    </include>
+    <include>
+      <uri>file:///home/asimovo/install/beach_world/share/beach_world/models/Road</uri>
+      <name>Road_0</name>
+      <pose>0.833173 -3.42605 -5.84935 0 0 5e-06</pose>
+    </include>
+    <include>
+      <uri>file:///home/asimovo/install/beach_world/share/beach_world/models/Road</uri>
+      <name>Road_1</name>
+      <pose>1.64355 8.09183 -5.84935 0 0 -0</pose>
+    </include>
+    <include>
+      <uri>file:///home/asimovo/install/beach_world/share/beach_world/models/Road</uri>
+      <name>Road_2</name>
+      <pose>-0.095386 -9.56455 -5.84935 0 0 -4.5e-05</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/ground_station</uri>
+      <name>ground_station</name>
+      <pose>-4.47848 -12.8422 0 0 -0 1.5708</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Salon</uri>
+      <name>salon</name>
+      <pose>6.63318 13.877 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Law office</uri>
+      <name>law_office</name>
+      <pose>-2.58062 14.1321 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree</name>
+      <pose>13.9695 0.149399 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_0</name>
+      <pose>9.64335 0.042789 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_1</name>
+      <pose>7.11174 0.227482 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_2</name>
+      <pose>4.38403 -0.06032 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_3</name>
+      <pose>1.92178 0.05349 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_4</name>
+      <pose>12.1416 0.060116 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_5</name>
+      <pose>-0.765244 0.130277 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_6</name>
+      <pose>-3.78772 0.033877 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_7</name>
+      <pose>-6.81085 0.128674 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine Tree</uri>
+      <name>Pine Tree_8</name>
+      <pose>-9.71367 0.107176 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Playground</uri>
+      <name>playground</name>
+      <pose>18.5066 14.6499 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/RetailKiosk2</uri>
+      <name>RetailKiosk2</name>
+      <pose>-0.464235 -12.8116 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/RetailKiosk1</uri>
+      <name>RetailKiosk1</name>
+      <pose>7.12697 -13.5478 0 0 -0 1.5708</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/OSRF First Office</uri>
+      <name>osrf_first_office</name>
+      <pose>-18.8439 22.1869 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Salon</uri>
+      <name>salon_0</name>
+      <pose>-9.94305 -14.1905 0 0 0 -3.14159</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Law office</uri>
+      <name>law_office_0</name>
+      <pose>12.6703 -14.211 0 0 0 -3.14159</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Law office</uri>
+      <name>law_office_1</name>
+      <pose>-17.8239 -14.2831 0 0 0 -3.14159</pose>
+    </include>
+    
+  </world>
+</sdf>
+

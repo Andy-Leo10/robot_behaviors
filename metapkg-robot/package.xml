@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="2">
+  <name>metapkg-robot</name>
+  <version>1.0.0</version>
+  <description>A package to aggregate all packages in my_project.</description>
+  <maintainer email="andres@asimovo.com">Andrés Alamo</maintainer>
+  <license>Apache License 2.0</license>
+  
+  <!-- packages in my_project -->
+  <exec_depend>diff_drive_controller</exec_depend>
+  <exec_depend>mecanum_drive_controller</exec_depend>
+  <exec_depend>husarion_gz_worlds</exec_depend>
+  <exec_depend>imu_sensor_broadcaster</exec_depend>
+  <exec_depend>micro_ros_msgs</exec_depend>
+  <exec_depend>micro_ros_agent</exec_depend>
+  <exec_depend>ros_components_description</exec_depend>
+  <exec_depend>rosbot_hardware_interfaces</exec_depend>
+  <exec_depend>rosbot_xl</exec_depend>
+  <exec_depend>rosbot_xl_bringup</exec_depend>
+  <exec_depend>rosbot_xl_controller</exec_depend>
+  <exec_depend>rosbot_xl_description</exec_depend>
+  <exec_depend>rosbot_xl_gazebo</exec_depend>
+  <exec_depend>rosbot_xl_utils</exec_depend>
+  <!-- packages from binaries -->
+  <!-- <exec_depend>nav2_msgs</exec_depend>
+  <exec_depend>nav2_controller</exec_depend> -->
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

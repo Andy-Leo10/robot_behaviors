@@ -1,0 +1,8 @@
+<root BTCPP_format="4">
+    <BehaviorTree ID="MainTree">
+        <Sequence>
+            <SendString name="J" topic_name="my_topic" msg="Hello, World!" />
+            <SendString name="K" topic_name="my_topic" msg="Bye, World!" />
+        </Sequence>
+    </BehaviorTree>
+</root>

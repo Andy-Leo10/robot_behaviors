@@ -1,0 +1,31 @@
+name: "perception_rosbot"
+displayName: "perception_rosbot"
+description: "Perception using yolov11"
+asset-type: "Other"
+version: "1.0.0"
+license: "Apache License 2.0"
+created: "2024-12-10T16:37:51.859Z"
+lastEdited: "2024-12-10T16:37:51.883Z"
+repackaged: "2024-12-10T16:37:51.883Z"
+ROS-compatibility:
+  - "ROS 2 Humble Hawksbill"
+simulator-compatibility:
+  - "Gazebo Fortress"
+source: "Private"
+creator: "Andrés Leonardo Alamo Guizado"
+ownerAID: ""
+tags:
+  - "yolov11"
+size: "**"
+codeLanguage: ""
+complexity: "Medium"
+folderSize: 489098
+demo: ""
+rosCompatibility: &a1
+  - "ROS 2 Humble Hawksbill"
+simulatorCompatibility: &a2
+  - "Gazebo Fortress"
+ROS-Compatibility: *a1
+Simulator-Compatibility: *a2
+image_filenames:
+  - "1.png"
